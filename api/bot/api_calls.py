@@ -75,8 +75,3 @@ def get_assignments(cms_token):
             print("Retrying...")
             retry += 1
     return assignments_names
-
-# get_user_token("f2014095", "National@11")
-# get_user_id("a6ecbfd494bb93a27424363b90c170cc")
-# get_enrolled_course_list("a6ecbfd494bb93a27424363b90c170cc", "2301")
-# get_assignments("a6ecbfd494bb93a27424363b90c170cc")
