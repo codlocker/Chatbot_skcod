@@ -7,7 +7,7 @@ def get_user_token(username, password):
     retry = 0
     cms_token = None
     while retry <= 3:
-        r = requests.get(base_url + api_point, timeout=5)
+        r = requests.get(base_url + api_point, timeout=3)
         if r.status_code == 200:
             cms_token = r.json()["token"]
             # print(cms_token)
@@ -24,7 +24,7 @@ def get_user_id(cms_token):
     retry = 0
     user_id = None
     while retry <= 3:
-        r = requests.get(base_url + api_point, timeout=5)
+        r = requests.get(base_url + api_point, timeout=3)
         if r.status_code == 200:
             user_id = r.json()["userid"]
             return user_id
@@ -41,7 +41,7 @@ def get_enrolled_course_list(cms_token, user_id):
     retry = 0
     course_names = []
     while retry <= 3:
-        r = requests.get(base_url + api_point, timeout=5)
+        r = requests.get(base_url + api_point, timeout=3)
         if r.status_code == 200:
             res = r.json()
             for each in res:
@@ -61,17 +61,21 @@ def get_assignments(cms_token):
     retry = 0
     assignments_names = []
     while retry <= 3:
-        r = requests.get(base_url + api_point, timeout=5)
+        r = requests.get(base_url + api_point, timeout=3)
         if r.status_code == 200:
             res = r.json()
             for each in res["courses"]:
                 if each["assignments"]:
                     for each_assign in each["assignments"]:
                         assignments_names.append([str(each_assign["name"]), str(each["fullname"]),
-                                                  each_assign["duedate"]])
+                                                  each_assign["duedate"], str(each_assign["intro"])])
             # print(assignments_names)
             return assignments_names
         else:
-            print("Retrying...")
+            # print("Retrying...")
             retry += 1
     return assignments_names
+
+if __name__ == "__main__":
+    token = get_user_token("f2014750", "1sanu@Silu")
+    print(get_assignments(token))

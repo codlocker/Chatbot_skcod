@@ -1,5 +1,5 @@
 df = {
     "assignment": None,
-    "course": None
+    "courses": None
 }
 output = {"df": df}
