@@ -83,6 +83,9 @@ def main_function(variables):
         if "cms_assign_key" in variables["nlp"]["custom_ners"] \
             and variables["nlp"]["custom_ners"]["cms_assign_key"]:
             df["assignment"] = True
+            df["courses"] = False
+        elif "cms_courses_key" in variables["nlp"]["custom_ners"]:
+            df["courses"] = True
 
-    output = {"df": df, "dataStore": data_store}
+    output = {"df": df, "dataStore": data_store, "consumerDataStore": variables["consumerDataStore"]}
     return output
