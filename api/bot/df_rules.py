@@ -11,9 +11,12 @@ def get_user_token(username, password):
     while retry <= 3:
         r = requests.get(base_url + api_point, timeout=3)
         if r.status_code == 200:
-            cms_token = r.json()["token"]
-            # print(cms_token)
-            return cms_token
+            if "token" in r.json():
+                cms_token = r.json()["token"]
+                # print(cms_token)
+                return cms_token
+            else:
+                retry += 1
         else:
             # print("Retrying...")
             retry += 1
@@ -28,8 +31,11 @@ def get_user_id(cms_token):
     while retry <= 3:
         r = requests.get(base_url + api_point, timeout=3)
         if r.status_code == 200:
-            user_id = r.json()["userid"]
-            return user_id
+            if "userid" in r.json():
+                user_id = r.json()["userid"]
+                return user_id
+            else:
+                retry += 1
         else:
             # print("Retrying...")
             retry += 1
@@ -68,14 +74,18 @@ def main_function(variables):
         password = variables["nlp"]["actual_text"].split()[-1]
         # TODO: get the token of user using moodle API
         cms_token = get_user_token(username, password)  # function call here with username and password
-        variables[permanent_data_key]["cms_token"] = cms_token
-
-        # TODO: get userid using the cms_token from moodle API
-        user_id = get_user_id(cms_token)  # function call here with token
-        variables[permanent_data_key]["user_id"] = user_id
-
-        data_store["credentials"] = True
-        data_store["first_time_cred"] = True
+        if cms_token:
+            variables[permanent_data_key]["cms_token"] = cms_token
+            user_id = get_user_id(cms_token)  # function call here with token
+            variables[permanent_data_key]["user_id"] = user_id
+            data_store["credentials"] = True
+            data_store["first_time_cred"] = True
+        else:
+            data_store["credentials"] = False
+            data_store["first_time_cred"] = False
+    else:
+        data_store["credentials"] = False
+        data_store["first_time_cred"] = False
 
     if data_store["credentials"] and data_store["first_time_cred"]:
         pass
@@ -86,6 +96,8 @@ def main_function(variables):
             df["courses"] = False
         elif "cms_courses_key" in variables["nlp"]["custom_ners"]:
             df["courses"] = True
-
+    else:
+        df["assignment"] = False
+        df["courses"] = False
     output = {"df": df, "dataStore": data_store, "consumerDataStore": variables["consumerDataStore"]}
     return output

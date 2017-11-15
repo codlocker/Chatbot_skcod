@@ -94,10 +94,16 @@ def main_function(variables):
             "text": [text]
         }]
     elif variables["templateKey"] == "error":
-        output = [{
-            "include": ["web"],
-            "text": ["Sorry I couldn't understand :( ."]
-        }]
+        if not variables["consumerDataStore"]:
+            output = [{
+                "include": ["web"],
+                "text": ["Sorry I cant find stuff for you if I don't know your CMS details :("]
+            }]
+        else:
+            output = [{
+                "include": ["web"],
+                "text": ["Sorry I couldn't understand :("]
+            }]
     # if variables['templateKey'] == 'pushreminder':
     #     output = [{"include":["web"],"text": [""]}]
     # elif (variables['templateKey'] == "give_time_interval"):
