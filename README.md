@@ -16,7 +16,7 @@
 #### OUTPUT (Postman Results)
 
 1. Conversation 1:  username: f201XXXX password: ********
-    Result: [Image](Docs/firstlogin.png)
+    Result: [Image](Docs/firstLogin.png)
 2. Conversation 2:  list my subjects for this semester OR What are my sbjcts this semester?
     Result: [Image](Docs/list_courses.png)
 3. Conversation 3:  Assignments in this semester OR What are my assignmnts this semester?
