@@ -16,13 +16,16 @@
 #### OUTPUT (Postman Results)
 
 1. Conversation 1:  username: f201XXXX password: ********
+    
     Result: [Image](Docs/firstLogin.png)
 2. Conversation 2:  list my subjects for this semester OR What are my sbjcts this semester?
+    
     Result: [Image](Docs/list_courses.png)
 3. Conversation 3:  Assignments in this semester OR What are my assignmnts this semester?
+    
     Result: [Image](Docs/assignments.png)
 4. Error Handling: [Image](Docs/error.png)
-5. Try Anything Wrong Password or details and the bot handles [Image](Docs/error_handler.png)
+5. Try Anything Wrong Password or details and the bot handles it [Image](Docs/error_handler.png)
 
 #### Extended Features to work on
 
@@ -32,7 +35,7 @@
 4. Anything more that is useful to know but is not given on the website
 
 
-**Developers**
+#### Developers
     - Ipsit Sahoo
     - Siddhant Kumar Patel
 
